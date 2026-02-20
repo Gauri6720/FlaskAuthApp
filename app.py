@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, flash
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 
@@ -9,7 +9,6 @@ app.secret_key = 'secret_key'
 
 
 #Create User model
-
 class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(100), nullable = False)
@@ -35,13 +34,21 @@ def index():
 @app.route("/register", methods=['GET','POST'])
 def register():
     if request.method == 'POST':
-        name = request.form['name']
-        email = request.form['email']
-        password = request.form['password']
+        name = request.form.get('name', '').strip()
+        email = request.form.get('email', '').strip()
+        password = request.form.get('password', '').strip()
         
+        if not name or not email or not password:
+            flash("All fields are required!", "danger")
+            return redirect("/register")
+        if password and len(password) < 6:
+            flash("Password must be at least 6 characters long!", "danger")
+            return redirect("/register")
         new_user = User(name=name, email=email, password=password)
         db.session.add(new_user)
         db.session.commit()
+        
+        flash("Employee added successfully!", "success")
         return redirect('/login')
     
     return render_template("register.html")
