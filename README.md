@@ -28,6 +28,7 @@ Make sure you have the following installed:
 --------------------------------------------------------------------------------
 
 # 📁 Project Structure
+```
 FlaskAuthApp/
 ├── app.py
 ├── templates/
@@ -38,3 +39,4 @@ FlaskAuthApp/
 ├── procfile
 ├── activate.bat
 └── pycache/
+```
