@@ -31,8 +31,8 @@ Make sure you have the following installed:
 FlaskAuthApp/
 ├── app.py
 ├── templates/
-│ ├── login.html
-│ └── signup.html
+│    ├── login.html
+│    └── signup.html
 ├── instance/
 ├── requirements.txt
 ├── procfile
